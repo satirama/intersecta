@@ -1,0 +1,34 @@
+.body {
+  width: 100%;
+  height: 100%;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  position: fixed;
+  top: 20%;
+  left: 25%;
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+}
+
+.background .row {
+  display: flex;
+  position: relative;
+  width: 100%;
+  justify-content: space-between;
+  min-height: 200px;
+  align-items: center;
+}
+
+.background .row:nth-child(even) {
+  justify-content: space-around;
+}
