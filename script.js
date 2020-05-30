@@ -19,7 +19,16 @@
   * method to get if screen is scrolling direction
   */
 
-
+/**
+ * Options for the intersection observer API
+ * 
+ * More information at: https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver
+ * 
+ * @param {Element} root object whose bounding box is used as the bounds of the viewport 
+ * @param {string} rootMargin offsets for one or more sides of the root's bounding box.
+ * @param {number} threshold list or value of intersection thresholds for the observer
+ * @returns {object} with the defined or default options
+ */
 const setOptions = ({
   root = null,
   rootMargin = '0px',
@@ -33,46 +42,63 @@ const setOptions = ({
 /**
  * This function initializes a scrolling direction tracker
  */
-let scrollingDirection = () => {
+let withScrollingDirection = () => {
   let currentY = window.scrollY;
   let previousY = 0;
 
-  let isDownwards = () => {
+  let isDownwards = () => currentY > previousY;
+  
+  let updatePosition = () => {
+    previousY = currentY;
     currentY = window.scrollY;
-    return currentY > previousY;
-  }
-  let updatePrevious = () => previousY = currentY;
+  };
 
-  let getDirection = () => {
-    const down = isDownwards();
-    updatePrevious();
-    return down;
+  let isScrollingDown = () => {
+    updatePosition();
+    return isDownwards();
   }
   return {
-    isScrollingDown: getDirection
+    isScrollingDown: isScrollingDown,
+    updatePosition: updatePosition
   }
 }
 
-let track = scrollingDirection();
+let track = withScrollingDirection();
 
-let transitionEffect = (entries) => { 
+let intersectionEffect = (entries) => { 
   //console.log('entries', entries);
   console.log(track.isScrollingDown());
-  entries.forEach((entry, index) => {
+  entries.forEach(entry => {
     if (entry.isIntersecting) {
-      //console.log(entry,'bhsjhbjsd', index);
+      entry.target.classList.add("effect");
+      console.log(entry,'bhsjhbjsd');
       //console.log('scrollingDown', scrollingDown)
     }
-    
   });
 };
 
 let selectItems = (selector) => document.querySelectorAll(selector);
 
 //console.log(selectItems('.item'), 'hbsja');
+
+
 let targets = document.querySelectorAll('.item');
-let observer = new IntersectionObserver(transitionEffect, setOptions());
+let observer = new IntersectionObserver(intersectionEffect, setOptions());
 targets.forEach((t, i) => {
   //console.log(t,i,'hbdbhjdsbhj');
   observer.observe(t);
 })
+
+/* 
+let createObserver = ({selector, options}) => {
+  let selectItems = document.querySelectorAll(selector);
+  let observer = new IntersectionObserver(intersectionEffect, setOptions(options));
+
+  return {
+    init: () => {
+      selectItems.forEach(t => observer.observe(t));
+    }
+  }
+} 
+
+createObserver('.item').init(); */
