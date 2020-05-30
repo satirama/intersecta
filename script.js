@@ -70,30 +70,18 @@ let intersectionEffect = (entries) => {
   console.log(track.isScrollingDown());
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.classList.add("effect");
+      //entry.target.classList.add("effect");
+      entry.target.style.opacity = "1";
+      entry.target.style.animation = "fadeIn ease 2s";
       console.log(entry,'bhsjhbjsd');
       //console.log('scrollingDown', scrollingDown)
     }
   });
 };
 
-let selectItems = (selector) => document.querySelectorAll(selector);
-
-//console.log(selectItems('.item'), 'hbsja');
-
-
-let targets = document.querySelectorAll('.item');
-let observer = new IntersectionObserver(intersectionEffect, setOptions());
-targets.forEach((t, i) => {
-  //console.log(t,i,'hbdbhjdsbhj');
-  observer.observe(t);
-})
-
-/* 
 let createObserver = ({selector, options}) => {
   let selectItems = document.querySelectorAll(selector);
   let observer = new IntersectionObserver(intersectionEffect, setOptions(options));
-
   return {
     init: () => {
       selectItems.forEach(t => observer.observe(t));
@@ -101,4 +89,4 @@ let createObserver = ({selector, options}) => {
   }
 } 
 
-createObserver('.item').init(); */
+createObserver({selector: '.item'}).init();
