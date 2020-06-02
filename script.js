@@ -73,24 +73,27 @@ let createObserver = ({selector, options}) => {
     //console.log(scrollingTracker.isScrollingDown());
     scrollingTracker.updatePosition();
     entries.forEach(entry => {
+      //console.log(entry);
       if (entry.isIntersecting) {
-        //entry.target.classList.add("effect");
+        entry.target.classList.add("effect");
         entry.target.style.opacity = "1";
         entry.target.style.animation = "fadeIn ease 2s";
+      } else {
+        if (entry.target.classList.contains("effect")) {
+          entry.target.style.opacity = "0";
+          entry.target.style.animation = "none";
+          entry.target.classList.remove("effect")
+        }
       }
     });
   };
 
   let selectItems = document.querySelectorAll(selector);
   let observer = new IntersectionObserver(intersectionEffect, setOptions(options));
+  selectItems.forEach(t => observer.observe(t));
   return {
-    init: () => {
-      selectItems.forEach(t => observer.observe(t));
-    },
     isScrollingDown: () => scrollingTracker.isScrollingDown()
   }
 } 
 
 let obs = createObserver({selector: '.item'});
-obs.init();
-setTimeout(()=> { console.log(obs.isScrollingDown())},5000);
