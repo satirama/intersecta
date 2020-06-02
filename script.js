@@ -25,7 +25,8 @@ setanimationOptions = ({
   delay = 0,
   timing = "ease",
   fill = "forwards",
-  once = true
+  once = true,
+  threshold = 1
 } = {}) => ({
   selector,
   animation,
@@ -33,7 +34,8 @@ setanimationOptions = ({
   delay,
   timing,
   fill,
-  once
+  once,
+  threshold
 });
 
 /**
@@ -71,7 +73,7 @@ handleEntry = (entry, observer, options) => {
       // timing options
       animationOptions
     )
-    // remove observer after effect played once
+    // when enabled, remove observer after effect played once
     if (options.once) observer.unobserve(entry.target);
   } else {    
     entry.target.animate(
@@ -84,9 +86,11 @@ handleEntry = (entry, observer, options) => {
 }
 
 let createObserver = (options) => {
+  if (!options.selector) throw new Error ("No selector was given, expected a string");
+
   let intersectionEffect = (entries, observer) => entries.forEach(entry => handleEntry(entry, observer, options));
   let selectItems = document.querySelectorAll(options.selector);
-  let observer = new IntersectionObserver(intersectionEffect, setObserverOptions());
+  let observer = new IntersectionObserver(intersectionEffect, setObserverOptions(options));
   selectItems.forEach(t => observer.observe(t));
 } 
 let obs = createObserver(setanimationOptions({
