@@ -1,25 +1,4 @@
 /**
- * User data:
- * input selector
- * input threshold
- * input transition
- * input scroll (both ways - only scrolling down - only scrolling up)
- * input duration
- * input delay
- * input once
- */
-
- /**
-  * Private functions
-  * default options
-  * replace with user options
-  * assign transition
-  * unobserve if it is called only once
-  * method to get item being called
-  * method to get if screen is scrolling direction
-  */
-
-/**
  * Options for the intersection observer API
  * 
  * More information at: https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver
@@ -29,7 +8,7 @@
  * @param {number} threshold list or value of intersection thresholds for the observer
  * @returns {object} with the defined or default options
  */
-const setObserverOptions = ({
+setObserverOptions = ({
   root = null,
   rootMargin = '0px',
   threshold = 1
@@ -40,17 +19,21 @@ const setObserverOptions = ({
 });
 
 setTransitionOptions = ({
+  selector = null,
   animation = "fadeIn",
   duration = 2000,
   delay = 0,
   timing = "ease",
-  fillMode = "forwards"
+  fill = "forwards",
+  once = true
 } = {}) => ({
+  selector,
   animation,
   duration,
   delay,
   timing,
-  fillMode
+  fill,
+  once
 });
 
 /**
@@ -77,54 +60,43 @@ let withScrollingDirection = () => {
   }
 }
 
+handleEntry = (entry, observer, options) => {
+  //console.log(entry);
+  let { duration, fill, delay } = options;
+  let transitionOptions = { duration, fill, delay };
+  if (entry.isIntersecting) {
+    entry.target.animate(
+      // keyframes
+      transitionsKeyFrames[options.animation],
+      // timing options
+      transitionOptions
+    )
+    // remove observer after effect played once
+    if (options.once) observer.unobserve(entry.target);
+  } else {    
+    entry.target.animate(
+      // keyframes
+      transitionsKeyFrames[options.animation],
+      // timing options
+      { direction: "reverse", ...transitionOptions}
+    )
+  }
+}
 
 let createObserver = (options) => {
-
-  let scrollingTracker = withScrollingDirection();
-  let selector = ".item"
-  console.log(options);
-  let intersectionEffect = (entries) => { 
-    //console.log('entries', entries);
-    //console.log(scrollingTracker.isScrollingDown());
-    scrollingTracker.updatePosition();
-    entries.forEach(entry => {
-      //console.log(entry);
-      if (entry.isIntersecting) {
-        entry.target.classList.add("effects");
-        entry.target.style.color = "red";
-        //entry.target.style.animation = options.duration + " " + options.timing + " " + options.delay + " " + options.animation + " " + options.fillMode;
-        entry.target.animate([
-          // keyframes
-          {opacity:0},
-          {opacity:1}
-        ], {
-          // timing options
-          duration: options.duration,
-          fill: options.fillMode,
-          delay: options.delay
-        })
-      } else {
-        entry.target.style.animation = "none";
-        entry.target.classList.remove("effects");
-        entry.target.animate([
-          // keyframes
-          {opacity:1},
-          {opacity:0}
-        ], {
-          // timing options
-          duration: options.duration,
-          fill: options.fillMode,
-          delay: options.delay
-        })
-      }
-    });
-  };
-
-  let selectItems = document.querySelectorAll(selector);
+  let intersectionEffect = (entries, observer) => entries.forEach(entry => handleEntry(entry, observer, options));
+  let selectItems = document.querySelectorAll(options.selector);
   let observer = new IntersectionObserver(intersectionEffect, setObserverOptions());
   selectItems.forEach(t => observer.observe(t));
-  return {
-    isScrollingDown: () => scrollingTracker.isScrollingDown()
-  }
 } 
-let obs = createObserver(setTransitionOptions());
+let obs = createObserver(setTransitionOptions({
+  selector: ".item",
+  once: false
+}));
+
+let transitionsKeyFrames = {
+  fadeIn: [
+    {opacity:0},
+    {opacity:1}
+  ]
+}
