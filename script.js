@@ -21,7 +21,7 @@ setObserverOptions = ({
 setanimationOptions = ({
   selector = null,
   animation = "fadeIn",
-  duration = 2000,
+  duration = 1000,
   delay = 0,
   timing = "ease",
   fill = "forwards",
@@ -40,7 +40,8 @@ setanimationOptions = ({
 
 /**
  * This function initializes a scrolling direction tracker
- */
+ * Working code but currently not in use
+
 let withScrollingDirection = () => {
   let currentY = window.scrollY;
   let previousY = 0;
@@ -61,11 +62,12 @@ let withScrollingDirection = () => {
     updatePosition: updatePosition
   }
 }
+*/
 
 handleEntry = (entry, observer, options) => {
   let { duration, fill, delay } = options;
   let animationOptions = { duration, fill, delay };
-
+  console.log(options.animation, animationKeyFrames[options.animation]);
   if (entry.isIntersecting) {
     entry.target.animate(
       // keyframes
@@ -95,12 +97,17 @@ let createObserver = (options) => {
 } 
 let obs = createObserver(setanimationOptions({
   selector: ".item",
-  once: false
+  once: false,
+  animation: "fadeOut",
 }));
 
 let animationKeyFrames = {
   fadeIn: [
-    {opacity:0},
-    {opacity:1}
+    { opacity: 0 },
+    { opacity: 1 }
+  ],
+  fadeOut: [
+    { opacity: 1 },
+    { opacity: 0 }
   ]
 }
