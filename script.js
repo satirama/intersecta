@@ -23,7 +23,7 @@ setanimationOptions = ({
   animation = "fadeIn",
   duration = 1000,
   delay = 0,
-  timing = "ease",
+  easing = "linear",
   fill = "forwards",
   once = true,
   threshold = 1
@@ -32,7 +32,7 @@ setanimationOptions = ({
   animation,
   duration,
   delay,
-  timing,
+  easing,
   fill,
   once,
   threshold
@@ -65,8 +65,8 @@ let withScrollingDirection = () => {
 */
 
 handleEntry = (entry, observer, options) => {
-  let { duration, fill, delay } = options;
-  let animationOptions = { duration, fill, delay };
+  let { duration, fill, delay, easing } = options;
+  let animationOptions = { duration, fill, delay, easing };
   console.log(options.animation, animationKeyFrames[options.animation]);
   if (entry.isIntersecting) {
     entry.target.animate(
@@ -89,9 +89,9 @@ handleEntry = (entry, observer, options) => {
 
 let createObserver = (options) => {
   if (!options.selector) throw new Error ("No selector was given, expected a string");
-
-  let intersectionEffect = (entries, observer) => entries.forEach(entry => handleEntry(entry, observer, options));
+  
   let selectItems = document.querySelectorAll(options.selector);
+  let intersectionEffect = (entries, observer) => entries.forEach(entry => handleEntry(entry, observer, options));
   let observer = new IntersectionObserver(intersectionEffect, setObserverOptions(options));
   selectItems.forEach(t => observer.observe(t));
 } 
