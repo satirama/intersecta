@@ -29,7 +29,7 @@
  * @param {number} threshold list or value of intersection thresholds for the observer
  * @returns {object} with the defined or default options
  */
-const setOptions = ({
+const setObserverOptions = ({
   root = null,
   rootMargin = '0px',
   threshold = 1
@@ -37,6 +37,20 @@ const setOptions = ({
   root,
   rootMargin,
   threshold
+});
+
+setTransitionOptions = ({
+  animation = "fadeIn",
+  duration = 2000,
+  delay = 0,
+  timing = "ease",
+  fillMode = "forwards"
+} = {}) => ({
+  animation,
+  duration,
+  delay,
+  timing,
+  fillMode
 });
 
 /**
@@ -64,10 +78,11 @@ let withScrollingDirection = () => {
 }
 
 
-let createObserver = ({selector, options}) => {
+let createObserver = (options) => {
 
   let scrollingTracker = withScrollingDirection();
-
+  let selector = ".item"
+  console.log(options);
   let intersectionEffect = (entries) => { 
     //console.log('entries', entries);
     //console.log(scrollingTracker.isScrollingDown());
@@ -75,25 +90,41 @@ let createObserver = ({selector, options}) => {
     entries.forEach(entry => {
       //console.log(entry);
       if (entry.isIntersecting) {
-        entry.target.classList.add("effect");
-        entry.target.style.opacity = "1";
-        entry.target.style.animation = "fadeIn ease 2s";
+        entry.target.classList.add("effects");
+        entry.target.style.color = "red";
+        //entry.target.style.animation = options.duration + " " + options.timing + " " + options.delay + " " + options.animation + " " + options.fillMode;
+        entry.target.animate([
+          // keyframes
+          {opacity:0},
+          {opacity:1}
+        ], {
+          // timing options
+          duration: options.duration,
+          fill: options.fillMode,
+          delay: options.delay
+        })
       } else {
-        if (entry.target.classList.contains("effect")) {
-          entry.target.style.opacity = "0";
-          entry.target.style.animation = "none";
-          entry.target.classList.remove("effect")
-        }
+        entry.target.style.animation = "none";
+        entry.target.classList.remove("effects");
+        entry.target.animate([
+          // keyframes
+          {opacity:1},
+          {opacity:0}
+        ], {
+          // timing options
+          duration: options.duration,
+          fill: options.fillMode,
+          delay: options.delay
+        })
       }
     });
   };
 
   let selectItems = document.querySelectorAll(selector);
-  let observer = new IntersectionObserver(intersectionEffect, setOptions(options));
+  let observer = new IntersectionObserver(intersectionEffect, setObserverOptions());
   selectItems.forEach(t => observer.observe(t));
   return {
     isScrollingDown: () => scrollingTracker.isScrollingDown()
   }
 } 
-
-let obs = createObserver({selector: '.item'});
+let obs = createObserver(setTransitionOptions());
