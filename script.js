@@ -18,7 +18,7 @@ setObserverOptions = ({
   threshold
 });
 
-setTransitionOptions = ({
+setanimationOptions = ({
   selector = null,
   animation = "fadeIn",
   duration = 2000,
@@ -61,24 +61,24 @@ let withScrollingDirection = () => {
 }
 
 handleEntry = (entry, observer, options) => {
-  //console.log(entry);
   let { duration, fill, delay } = options;
-  let transitionOptions = { duration, fill, delay };
+  let animationOptions = { duration, fill, delay };
+
   if (entry.isIntersecting) {
     entry.target.animate(
       // keyframes
-      transitionsKeyFrames[options.animation],
+      animationKeyFrames[options.animation],
       // timing options
-      transitionOptions
+      animationOptions
     )
     // remove observer after effect played once
     if (options.once) observer.unobserve(entry.target);
   } else {    
     entry.target.animate(
       // keyframes
-      transitionsKeyFrames[options.animation],
+      animationKeyFrames[options.animation],
       // timing options
-      { direction: "reverse", ...transitionOptions}
+      { direction: "reverse", ...animationOptions}
     )
   }
 }
@@ -89,12 +89,12 @@ let createObserver = (options) => {
   let observer = new IntersectionObserver(intersectionEffect, setObserverOptions());
   selectItems.forEach(t => observer.observe(t));
 } 
-let obs = createObserver(setTransitionOptions({
+let obs = createObserver(setanimationOptions({
   selector: ".item",
   once: false
 }));
 
-let transitionsKeyFrames = {
+let animationKeyFrames = {
   fadeIn: [
     {opacity:0},
     {opacity:1}
