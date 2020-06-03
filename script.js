@@ -20,22 +20,22 @@ setObserverOptions = ({
 
 setanimationOptions = ({
   selector = null,
+  threshold = 1,
   animation = "fadeIn",
   duration = 1000,
   delay = 0,
   easing = "linear",
   fill = "forwards",
-  once = true,
-  threshold = 1
+  once = true
 } = {}) => ({
   selector,
+  threshold,
   animation,
   duration,
   delay,
   easing,
   fill,
-  once,
-  threshold
+  once
 });
 
 /**
