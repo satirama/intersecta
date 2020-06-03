@@ -1,5 +1,5 @@
 # Intersecta: WIP
-Add an animation effect on a DOM element when scrolling using only JavaScript.
+Add an animation effect on a DOM element triggered by scrolling using only JavaScript.
 
 No external libs only WebAPI. It is supported on most browsers.
 However, for more detailed browser compatibility check:
@@ -8,7 +8,24 @@ However, for more detailed browser compatibility check:
 
 [Element Animation](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#Browser_compatibility)
 ## Getting started
-Just start **intersecta** initializing it with your options object. It only requires the CSS selector for the element you want to animate on scroll.
+Import **intersecta** to your file
+```
+import intersecta from "../intersecta.js"
+```
+Just start **intersecta** initializing it with your options object. It only requires the CSS selector for the element you want to animate on scroll. 
+```
+intersecta({
+  selector: '.item'
+});
+```
+Add whatever other options you want to customize it
+```
+intersecta({
+  selector: '.item',
+  once: false,
+  animation: 'fadeOut',
+});
+```
 
 ## Options
 | Name        | Type        | Default     | Description  |
@@ -20,6 +37,7 @@ Just start **intersecta** initializing it with your options object. It only requ
 | delay       | number      | 0           | Number of milliseconds to delay the start of the animation.
 | easing      | string      | "linear"      | Rate of the animation's change over time.
 | once        | boolean     | true          | Allows animation to be reapeated everytime the element enters.
+| chain       | boolean     | false         | When selecting multiple elements, adds a small delay so the animation runs gradually.
 
 ## Animations
 * fadeIn
