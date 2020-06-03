@@ -1,4 +1,4 @@
-# Intersecta
+# Intersecta: WIP
 Add an animation effect on a DOM element when scrolling using only JavaScript.
 
 No external libs only WebAPI. It is supported on most browsers.
