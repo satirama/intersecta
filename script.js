@@ -1,30 +1,42 @@
+
+const animationKeyFrames = {
+  fadeIn: [
+    { opacity: 0 },
+    { opacity: 1 },
+  ],
+  fadeOut: [
+    { opacity: 1 },
+    { opacity: 0 },
+  ],
+};
+
 /**
  * Options for the intersection observer API
- * 
- * @param {Element} root object whose bounding box is used as the bounds of the viewport 
+ *
+ * @param {Element} root object whose bounding box is used as the bounds of the viewport
  * @param {string} rootMargin offsets for one or more sides of the root's bounding box.
  * @param {number} threshold list or value of intersection thresholds for the observer
  * @returns {object} with the defined or default options
  */
-setObserverOptions = ({
+const setObserverOptions = ({
   root = null,
   rootMargin = '0px',
-  threshold = 1
+  threshold = 1,
 } = {}) => ({
   root,
   rootMargin,
-  threshold
+  threshold,
 });
 
-setAnimationOptions = ({
+const setAnimationOptions = ({
   selector = null,
   threshold = 1,
-  animation = "fadeIn",
+  animation = 'fadeIn',
   duration = 1000,
   delay = 0,
-  easing = "linear",
-  fill = "forwards",
-  once = true
+  easing = 'linear',
+  fill = 'forwards',
+  once = true,
 } = {}) => ({
   selector,
   threshold,
@@ -33,7 +45,7 @@ setAnimationOptions = ({
   delay,
   easing,
   fill,
-  once
+  once,
 });
 
 /**
@@ -45,7 +57,7 @@ let withScrollingDirection = () => {
   let previousY = 0;
 
   let isDownwards = () => currentY > previousY;
-  
+
   let updatePosition = () => {
     previousY = currentY;
     currentY = window.scrollY;
@@ -62,50 +74,41 @@ let withScrollingDirection = () => {
 }
 */
 
-handleEntry = (entry, observer, options) => {
-  let { duration, fill, delay, easing } = options;
-  let animationOptions = { duration, fill, delay, easing };
+const handleEntry = (entry, observer, options) => {
+  const {
+    duration, fill, delay, easing,
+  } = options;
+  const animationOptions = {
+    duration, fill, delay, easing,
+  };
   if (entry.isIntersecting) {
     entry.target.animate(
       // keyframes
       animationKeyFrames[options.animation],
       // timing options
-      animationOptions
+      animationOptions,
     );
     // when enabled, remove observer after effect played once
     if (options.once) observer.unobserve(entry.target);
-  } else {    
+  } else {
     entry.target.animate(
       // keyframes
       animationKeyFrames[options.animation],
       // timing options
-      { direction: "reverse", ...animationOptions}
-    )
+      { direction: 'reverse', ...animationOptions },
+    );
   }
-}
+};
 
-let createObserver = (userOptions) => {
-  if (!userOptions.selector) throw new Error ("No selector was given, expected a string");
-  
-  let options = setAnimationOptions(userOptions);
-  let selectItems = document.querySelectorAll(options.selector);
-  let intersectionEffect = (entries, observer) => entries.forEach(entry => handleEntry(entry, observer, options));
-  let observer = new IntersectionObserver(intersectionEffect, setObserverOptions(options));
-  selectItems.forEach(t => observer.observe(t));
-} 
-let obs = createObserver({
-  selector: ".item",
-  once: false,
-  animation: "fadeIn",
-});
+const createObserver = (userOptions) => {
+  if (!userOptions.selector) throw new Error('No selector was given, expected a string');
 
-let animationKeyFrames = {
-  fadeIn: [
-    { opacity: 0 },
-    { opacity: 1 }
-  ],
-  fadeOut: [
-    { opacity: 1 },
-    { opacity: 0 }
-  ]
-}
+  const options = setAnimationOptions(userOptions);
+  const selectItems = document.querySelectorAll(options.selector);
+  const intersectionEffect = (entries, observer) => {
+    entries.forEach((entry) => handleEntry(entry, observer, options));
+  };
+  const observer = new IntersectionObserver(intersectionEffect, setObserverOptions(options));
+  selectItems.forEach((t) => observer.observe(t));
+};
+export { createObserver as default };
