@@ -42,6 +42,11 @@ intersecta({
 * fadeIn
 * fadeOut
 * zoomIn
+* zoomOut
+* slideDown
+* slideUp
+* slideLeft
+* slideRight
 
 ## Easing
 Accepts the pre-defined values:
