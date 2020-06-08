@@ -39,7 +39,7 @@ const setObserverOptions = ({
 /**
  * Creates all options needed out of user options object
  *
- * @param {string} selector string of css selector for desired element
+ * @param {string} selector css selector for desired element
  * @param {number} threshold value of intersection threshold for the observer
  * @param {string} animation chosen effect of available options
  * @param {number} duration number of milliseconds the animation takes to complete
@@ -95,6 +95,14 @@ let withScrollingDirection = () => {
 }
 */
 
+
+/**
+ * Callback for Intersection Observer
+ * Starts animations for entry according to options
+ * @param {object} entry
+ * @param {object} observer
+ * @param {object} options
+ */
 const handleEntry = (entry, observer, options) => {
   const animationOptions = (({
     duration, fill, delay, easing,
@@ -103,6 +111,7 @@ const handleEntry = (entry, observer, options) => {
   }))(options);
 
   if (entry.isIntersecting) {
+    console.log(typeof entry, typeof observer, typeof options);
     entry.target.animate(
       // keyframes
       animationKeyFrames[options.animation],
@@ -122,8 +131,13 @@ const handleEntry = (entry, observer, options) => {
   }
 };
 
-const createObserver = (userOptions) => {
-  //Handle wrong inputs
+/**
+ * Core function
+ * Starts observer for desired elements according to user options
+ * @param {object} userOptions
+ */
+const createIntersectaObserver = (userOptions) => {
+  // Handle wrong inputs
   if (!userOptions.selector) throw new Error('No selector was given, expected a string');
   if (userOptions.threshold && typeof userOptions.threshold !== 'number') throw new Error('Threshold for animations should be a number');
 
@@ -139,4 +153,4 @@ const createObserver = (userOptions) => {
   selectItems.forEach((t) => observer.observe(t));
 };
 
-export { createObserver as default };
+export { createIntersectaObserver as default };
