@@ -123,9 +123,7 @@ const handleEntry = (entry, observer, options) => {
 };
 
 const createObserver = (userOptions) => {
-  /**
-   * Handle wrong inputs
-   */
+  //Handle wrong inputs
   if (!userOptions.selector) throw new Error('No selector was given, expected a string');
   if (userOptions.threshold && typeof userOptions.threshold !== 'number') throw new Error('Threshold for animations should be a number');
 
