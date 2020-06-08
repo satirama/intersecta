@@ -18,7 +18,7 @@ intersecta({
   selector: '.item'
 });
 ```
-Add whatever other options you want to customize it
+Add whichever options you want to customize it.
 ```
 intersecta({
   selector: '.item',
