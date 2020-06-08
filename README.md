@@ -1,7 +1,7 @@
 # Intersecta: WIP
 Add an animation effect on a DOM element triggered by scrolling using only JavaScript.
 
-No external libs only WebAPI. It is supported on most browsers.
+No external libs only WebAPI. It is supported on most modern browsers.
 However, for more detailed browser compatibility check:
 
 [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver#Browser_compatibility)
@@ -37,6 +37,7 @@ intersecta({
 | delay       | number      | 0           | Number of milliseconds to delay the start of the animation.
 | easing      | string      | "linear"      | Rate of the animation's change over time.
 | once        | boolean     | true          | Allows animation to be reapeated everytime the element enters.
+| waterfall   | boolean     | false         | When selector applies to many elements, it allows a waterfall delay set by *delay* option. If no *delay* is set, it will default to 100ms increase.
 
 ## Animations
 * fadeIn
