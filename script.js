@@ -20,6 +20,11 @@ const animationKeyFrames = {
 
 /**
  * Options for the intersection observer API
+ *
+ * @param {Element} root object whose bounding box is used as the bounds of the viewport
+ * @param {string} rootMargin offsets for one or more sides of the root's bounding box.
+ * @param {number} threshold list or value of intersection thresholds for the observer
+ * @returns {object} with the defined or default options
  */
 const setObserverOptions = ({
   root = null,
@@ -136,8 +141,4 @@ const createObserver = (userOptions) => {
   selectItems.forEach((t) => observer.observe(t));
 };
 
-createObserver({
-  selector: '.item',
-  once: false
-})
-//export { createObserver as default };
+export { createObserver as default };
