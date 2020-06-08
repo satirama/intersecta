@@ -33,7 +33,7 @@ const setObserverOptions = ({
   threshold,
 });
 
-const setAnimationOptions = ({
+const setAllOptions = ({
   selector = null,
   threshold = 1,
   animation = 'fadeIn',
@@ -41,7 +41,7 @@ const setAnimationOptions = ({
   delay = 0,
   easing = 'linear',
   fill = 'forwards',
-  once = true,
+  once = true
 } = {}) => ({
   selector,
   threshold,
@@ -80,12 +80,12 @@ let withScrollingDirection = () => {
 */
 
 const handleEntry = (entry, observer, options) => {
-  const {
+  const animationOptions = (({
     duration, fill, delay, easing,
-  } = options;
-  const animationOptions = {
+  }) => ({
     duration, fill, delay, easing,
-  };
+  }))(options);
+
   if (entry.isIntersecting) {
     entry.target.animate(
       // keyframes
@@ -93,6 +93,7 @@ const handleEntry = (entry, observer, options) => {
       // timing options
       animationOptions,
     );
+
     // when enabled, remove observer after effect played once
     if (options.once) observer.unobserve(entry.target);
   } else {
@@ -107,8 +108,9 @@ const handleEntry = (entry, observer, options) => {
 
 const createObserver = (userOptions) => {
   if (!userOptions.selector) throw new Error('No selector was given, expected a string');
+  if (userOptions.threshold && typeof userOptions.threshold !== 'number') throw new Error('Threshold for animations should be a number');
 
-  const options = setAnimationOptions(userOptions);
+  const options = setAllOptions(userOptions);
   const selectItems = document.querySelectorAll(options.selector);
   const intersectionEffect = (entries, observer) => {
     entries.forEach((entry) => handleEntry(entry, observer, options));
@@ -116,4 +118,9 @@ const createObserver = (userOptions) => {
   const observer = new IntersectionObserver(intersectionEffect, setObserverOptions(options));
   selectItems.forEach((t) => observer.observe(t));
 };
-export { createObserver as default };
+
+createObserver({
+  selector: '.item',
+  once: false
+})
+//export { createObserver as default };

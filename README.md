@@ -37,8 +37,8 @@ intersecta({
 | delay       | number      | 0           | Number of milliseconds to delay the start of the animation.
 | easing      | string      | "linear"      | Rate of the animation's change over time.
 | once        | boolean     | true          | Allows animation to be reapeated everytime the element enters.
-| chain       | boolean     | false         | When selecting multiple elements, adds a small delay so the animation runs gradually.
 
 ## Animations
 * fadeIn
 * fadeOut
+* zoomIn
