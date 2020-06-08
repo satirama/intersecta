@@ -42,3 +42,14 @@ intersecta({
 * fadeIn
 * fadeOut
 * zoomIn
+
+## Easing
+Accepts the pre-defined values:
+* "linear"
+* "ease"
+* "ease-in"
+* "ease-out"
+* "ease-in-out"
+
+Or a custom "cubic-bezier" value like:
+* "cubic-bezier(0.42, 0, 0.58, 1)"
