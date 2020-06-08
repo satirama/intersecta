@@ -1,4 +1,7 @@
-
+/**
+ * Available animations.
+ * Move to a different file
+ */
 const animationKeyFrames = {
   fadeIn: [
     { opacity: 0 },
@@ -17,11 +20,6 @@ const animationKeyFrames = {
 
 /**
  * Options for the intersection observer API
- *
- * @param {Element} root object whose bounding box is used as the bounds of the viewport
- * @param {string} rootMargin offsets for one or more sides of the root's bounding box.
- * @param {number} threshold list or value of intersection thresholds for the observer
- * @returns {object} with the defined or default options
  */
 const setObserverOptions = ({
   root = null,
@@ -33,6 +31,19 @@ const setObserverOptions = ({
   threshold,
 });
 
+/**
+ * Creates all options needed out of user options object
+ *
+ * @param {string} selector string of css selector for desired element
+ * @param {number} threshold value of intersection threshold for the observer
+ * @param {string} animation chosen effect of available options
+ * @param {number} duration number of milliseconds the animation takes to complete
+ * @param {number} delay number of milliseconds to delay the start of the animation
+ * @param {string} easing rate of animation's change over time
+ * @param {string} fill whether animation's effects should be retained after its done
+ * @param {boolean} once whether animation should play each time element enters/exits
+ * @returns {object} with user defined and/or default options
+ */
 const setAllOptions = ({
   selector = null,
   threshold = 1,
@@ -41,7 +52,7 @@ const setAllOptions = ({
   delay = 0,
   easing = 'linear',
   fill = 'forwards',
-  once = true
+  once = true,
 } = {}) => ({
   selector,
   threshold,
@@ -55,7 +66,7 @@ const setAllOptions = ({
 
 /**
  * This function initializes a scrolling direction tracker
- * Working code but currently not in use
+ * Working code currently not in use
 
 let withScrollingDirection = () => {
   let currentY = window.scrollY;
@@ -107,14 +118,20 @@ const handleEntry = (entry, observer, options) => {
 };
 
 const createObserver = (userOptions) => {
+  /**
+   * Handle wrong inputs
+   */
   if (!userOptions.selector) throw new Error('No selector was given, expected a string');
   if (userOptions.threshold && typeof userOptions.threshold !== 'number') throw new Error('Threshold for animations should be a number');
 
+  // set options, items and callback
   const options = setAllOptions(userOptions);
   const selectItems = document.querySelectorAll(options.selector);
   const intersectionEffect = (entries, observer) => {
     entries.forEach((entry) => handleEntry(entry, observer, options));
   };
+
+  // start observer
   const observer = new IntersectionObserver(intersectionEffect, setObserverOptions(options));
   selectItems.forEach((t) => observer.observe(t));
 };
