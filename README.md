@@ -8,6 +8,7 @@ However, for more detailed browser compatibility check:
 
 [Element Animation](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#Browser_compatibility)
 ## Getting started
+### Start
 Import **intersecta** to your file
 ```
 import intersecta from "../intersecta.js"
@@ -26,6 +27,17 @@ intersecta({
   animation: 'fadeOut',
 });
 ```
+### Stop
+Initializing **intersecta** returns a stop method to quit observing all the elements it tracks any time you want.
+```
+const trackItems = intersecta({
+  selector: '.item',
+  once: false,
+  animation: 'fadeOut',
+});
+
+trackItems.stop();
+```
 
 ## Options
 | Name        | Type        | Default     | Description  |
@@ -36,7 +48,7 @@ intersecta({
 | duration    | number      | 1000        | Number of milliseconds the animation takes to complete.
 | delay       | number      | 0           | Number of milliseconds to delay the start of the animation.
 | easing      | string      | "linear"      | Rate of the animation's change over time.
-| once        | boolean     | true          | Allows animation to be reapeated everytime the element enters. Can't be use with animations that move the element in ways that can cause a duplicate enter trigger, like: *slideDown*, *slideUp* or *zoomIn*.
+| once        | boolean     | true          | Allows animation to be reapeated everytime the element enters. Can't be use with animations that can cause a duplicate enter trigger, like: *slideDown*, *slideUp* or *zoomIn*.
 | waterfall   | boolean     | false         | When selector applies to many elements, it allows a waterfall delay set by *delay* option. If no *delay* is set, it will default to 100ms increase.
 
 ## Animations
