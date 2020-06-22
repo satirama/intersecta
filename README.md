@@ -28,7 +28,7 @@ intersecta({
 });
 ```
 ### Stop
-Initializing **intersecta** returns a stop method to quit observing all the elements it tracks any time you want.
+Initializing **intersecta** returns a stop method to remove the observer on all the elements it tracks any time you want.
 ```
 const trackItems = intersecta({
   selector: '.item',
@@ -73,3 +73,16 @@ Accepts the pre-defined values:
 
 Or a custom "cubic-bezier" value like:
 * "cubic-bezier(0.42, 0, 0.58, 1)"
+
+## Events
+Two events are added to the elements that **intersecta** observes:
+* *intersecta:in* - When element enters.
+* *intersecta:out* - When element exits.
+You can add any callback you want.
+```
+const element = document.querySelector('.item');
+
+element.addEventListener('intersecta:in', () => {
+  // your code here
+});
+```
