@@ -36,7 +36,7 @@ intersecta({
 | duration    | number      | 1000        | Number of milliseconds the animation takes to complete.
 | delay       | number      | 0           | Number of milliseconds to delay the start of the animation.
 | easing      | string      | "linear"      | Rate of the animation's change over time.
-| once        | boolean     | true          | Allows animation to be reapeated everytime the element enters.
+| once        | boolean     | true          | Allows animation to be reapeated everytime the element enters. Can't be use with animations that move the element in ways that can cause a duplicate enter trigger, like: *slideDown*, *slideUp* or *zoomIn*.
 | waterfall   | boolean     | false         | When selector applies to many elements, it allows a waterfall delay set by *delay* option. If no *delay* is set, it will default to 100ms increase.
 
 ## Animations
