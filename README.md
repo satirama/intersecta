@@ -52,6 +52,7 @@ trackItems.stop();
 | easing      | string      | "linear"      | Rate of the animation's change over time.
 | once        | boolean     | true          | Allows animation to be reapeated everytime the element enters. Can't be use with animations that can cause a duplicate enter trigger, like: *slideDown*, *slideUp* or *zoomIn*.
 | waterfall   | boolean     | false         | When selector applies to many elements, it allows a waterfall delay set by *delay* option. If no *delay* is set, it will default to 100ms increase.
+| custom      | object      | null          | Use any animation you want using this option. It will override the animation option. Check [docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Keyframe_Formats) for valid options.
 
 ## Animations
 * fadeIn
@@ -76,6 +77,30 @@ Accepts the pre-defined values:
 Or a custom "cubic-bezier" value like:
 * "cubic-bezier(0.42, 0, 0.58, 1)"
 
+## Custom animation
+Use the *custom* option to pass the frames of any animations you want. It will override the *animation* option, giving priority your customized animation. 
+
+It can be as easy as an array of objects with CSS properties.
+```
+const customFrames = [ 
+  { // from
+    opacity: 0,
+    color: "#fff"
+  }, 
+  { // to
+    opacity: 1,
+​   color: "#ff6347"
+  }
+];
+
+intersecta({
+  selector: '.item',
+  once: false,
+  custom: customFrames,
+});
+```
+Check more valid keyframe formats [here](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Keyframe_Formats).
+
 ## Events
 Two events are added to the elements that **intersecta** observes:
 * *intersecta:in* - When element enters.
@@ -84,6 +109,7 @@ You can add any callback you want.
 ```
 const element = document.querySelector('.item');
 
+// event for when element enters
 element.addEventListener('intersecta:in', () => {
   // your code here
 });
