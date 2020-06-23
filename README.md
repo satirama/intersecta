@@ -9,7 +9,16 @@ However, for more detailed browser compatibility check:
 [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver#Browser_compatibility)
 
 [Element Animation](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#Browser_compatibility)
-## Getting started
+
+## Content
+1. [Getting started](#getting-started)
+1. [Options](#options)
+1. [Animations](#animations)
+1. [Easing](#easing)
+1. [Custom animation](#custom-animation)
+1. [Events](#events)
+
+## Getting started <a name="getting-started"></a>
 ### Start
 Import **intersecta** to your file
 ```
@@ -41,7 +50,7 @@ const trackItems = intersecta({
 trackItems.stop();
 ```
 
-## Options
+## Options <a name="options"></a>
 | Name        | Type        | Default     | Description  |
 | :---        |    :----:   |    :----:   | :---         |
 | selector    | string      | null        | *Required*. CSS selector for the observed element. |
@@ -54,7 +63,7 @@ trackItems.stop();
 | waterfall   | boolean     | false         | When selector applies to many elements, it allows a waterfall delay set by *delay* option. If no *delay* is set, it will default to 100ms increase.
 | custom      | object      | null          | Use any animation you want using this option. It will override the animation option. Check [docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Keyframe_Formats) for valid options.
 
-## Animations
+## Animations <a name="animations"></a>
 * fadeIn
 * fadeOut
 * zoomIn
@@ -66,7 +75,7 @@ trackItems.stop();
 * flipLeft
 * flipRight
 
-## Easing
+## Easing <a name="easing"></a>
 Accepts the pre-defined values:
 * "linear"
 * "ease"
@@ -77,7 +86,7 @@ Accepts the pre-defined values:
 Or a custom "cubic-bezier" value like:
 * "cubic-bezier(0.42, 0, 0.58, 1)"
 
-## Custom animation
+## Custom animation <a name="custom-animation"></a>
 Use the *custom* option to pass the frames of any animations you want. It will override the *animation* option, giving priority your customized animation. 
 
 It can be as easy as an array of objects with CSS properties.
@@ -101,7 +110,7 @@ intersecta({
 ```
 Check more valid keyframe formats [here](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Keyframe_Formats).
 
-## Events
+## Events <a name="events"></a>
 Two events are added to the elements that **intersecta** observes:
 * *intersecta:in* - When element enters.
 * *intersecta:out* - When element exits.
