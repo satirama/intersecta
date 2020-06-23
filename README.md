@@ -6,9 +6,8 @@ Add an animation effect on a DOM element triggered by scrolling using only JavaS
 No external libs only WebAPI. It is supported on most modern browsers.
 However, for more detailed browser compatibility check:
 
-[Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver#Browser_compatibility)
-
-[Element Animation](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#Browser_compatibility)
+* [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver#Browser_compatibility)
+* [Element Animation](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#Browser_compatibility)
 
 ## Content
 1. [Getting started](#getting-started)
