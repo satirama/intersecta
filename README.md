@@ -1,6 +1,8 @@
 # intersecta
 Add an animation effect on a DOM element triggered by scrolling using only JavaScript.
 
+[**Try demo**](https://satirama.github.io/intersecta/)
+
 No external libs only WebAPI. It is supported on most modern browsers.
 However, for more detailed browser compatibility check:
 
