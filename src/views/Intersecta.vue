@@ -10,55 +10,55 @@
         img.mt-4(src="/img/github.png" alt="github")
     .background
       .group
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
+        .item
+        .item
+        .item
+        .item
+        .item
       .group
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
+        .item
+        .item
+        .item
+        .item
       .group
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
+        .item
+        .item
+        .item
+        .item
+        .item
       .group
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
+        .item
+        .item
+        .item
+        .item
       .group
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
+        .item
+        .item
+        .item
+        .item
+        .item
       .group
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
+        .item
+        .item
+        .item
+        .item
       .group
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
+        .item
+        .item
+        .item
+        .item
+        .item
       .group
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
+        .item
+        .item
+        .item
+        .item
       .group
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
-        h3.item *
+        .item
+        .item
+        .item
+        .item
+        .item
 </template>
 <script>
 import intersecta from '@/intersecta/intersecta';
@@ -67,7 +67,7 @@ export default {
   name: 'Intersecta',
   data() {
     return {
-      animation: 'flipLeft',
+      animation: 'fadeIn',
       animationOptions: [
         'fadeIn',
         'fadeOut',
@@ -81,6 +81,14 @@ export default {
         'flipRight',
       ],
       observer: undefined,
+      colors: [
+        'rgba(123,121,158',
+        'rgba(137, 191, 185',
+        'rgba(103, 128, 155',
+        'rgba(220, 125, 124',
+        'rgba(239, 191, 167',
+        'rgba(248, 229, 196',
+      ],
     };
   },
   methods: {
@@ -107,10 +115,16 @@ export default {
     },
   },
   mounted() {
+    document.querySelectorAll('.item').forEach((el) => {
+      const item = el;
+      const random = Math.floor(Math.random() * this.colors.length);
+      item.style.background = `linear-gradient(125deg,
+      ${this.colors[random]}, 0.2), ${this.colors[random]}, 1))`;
+    });
     this.observer = intersecta({
       selector: '.item',
       once: false,
-      animation: 'flipLeft',
+      animation: 'fadeIn',
       threshold: 1,
       delay: 0,
     });
@@ -145,18 +159,24 @@ export default {
 .background {
   width: 100%;
   height: 100%;
-}
-
-.background .group {
-  display: flex;
-  position: relative;
-  justify-content: space-between;
-  min-height: 200px;
-  align-items: center;
-  padding: 3rem;
-}
-
-.background .group:nth-child(even) {
-  justify-content: space-around;
+  .group {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    min-height: 200px;
+    align-items: center;
+    padding: 3rem;
+    margin: 1rem auto;
+    .item {
+      width: 1rem;
+      height: 1rem;
+      background-color: black;
+      border-radius: 50%;
+      box-shadow: 2px 1px 2px 0px rgba(0, 0, 0, 0.2);
+    }
+  }
+  .group:nth-child(even) {
+    justify-content: space-around;
+  }
 }
 </style>
