@@ -11,9 +11,9 @@ const setObserverOptions = ({
   threshold,
 });
 const setAllOptions = ({
-  selector = null,
-  threshold = 1,
-  animation = 'fadeIn',
+  selector,
+  threshold,
+  animation,
   duration = 1000,
   delay = 0,
   easing = 'linear',
@@ -70,11 +70,11 @@ const handleEntry = (entry: IntersectionObserverEntry, observer: IntersectionObs
   }))(options);
 
   // if custom animation, use custom
-  const animation = options.custom ? options.custom : frames[options.animation];
+  const animation = options.custom ? options.custom : frames[options.animation || 'fadeIn'];
 
   if (entry.isIntersecting
     && entry.intersectionRatio.toFixed(1)
-    >= options.threshold.toFixed(1)) {
+    >= (options.threshold ? options.threshold.toFixed(1) : 1)) {
     // if waterfall is selected, add selected or default delay
     if (options.waterfall) {
       if (animationOptions.delay) {
@@ -110,7 +110,7 @@ const handleEntry = (entry: IntersectionObserverEntry, observer: IntersectionObs
     );
   }
 };
-const createIntersectaObserver = (userOptions?: IntersectaOptions) => {
+const createIntersectaObserver = (userOptions: IntersectaOptions) => {
   // handle wrong user inputs
   handleInputErrors(userOptions);
 
