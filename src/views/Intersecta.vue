@@ -81,6 +81,7 @@ export default {
         'flipRight',
       ],
       observer: undefined,
+      /*
       colors: [
         'rgba(123,121,158',
         'rgba(137, 191, 185',
@@ -88,6 +89,12 @@ export default {
         'rgba(220, 125, 124',
         'rgba(239, 191, 167',
         'rgba(248, 229, 196',
+      ], */
+      colors: [
+        'rgba(168,251,169',
+        'rgba(211,127,125',
+        'rgba(236,254,97',
+        'rgba(51,39,241',
       ],
     };
   },
@@ -118,8 +125,10 @@ export default {
     document.querySelectorAll('.item').forEach((el) => {
       const item = el;
       const random = Math.floor(Math.random() * this.colors.length);
+      /* item.style.background = `linear-gradient(125deg,
+      ${this.colors[random]}, 0.2), ${this.colors[random]}, 1))`; */
       item.style.background = `linear-gradient(125deg,
-      ${this.colors[random]}, 0.2), ${this.colors[random]}, 1))`;
+      ${this.colors[random]}, 0.6), ${this.colors[random]}, 1))`;
     });
     this.observer = intersecta({
       selector: '.item',
