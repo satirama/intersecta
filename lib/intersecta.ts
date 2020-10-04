@@ -33,29 +33,11 @@ const setAllOptions = ({
   custom,
 });
 const handleInputErrors = ((options: IntersectaOptions) => {
-  if (!options.selector || typeof options.selector !== 'string') {
-    throw new Error('Either no selector was given or it is not a string');
-  }
-  if (options.threshold
-    && typeof options.threshold !== 'number'
-    && options.threshold >= 0
-    && options.threshold <= 1) {
-    throw new Error('Threshold should be a number between 0 and 1 inclusive');
-  }
-  if (options.animation && typeof options.animation !== 'string') {
-    throw new Error(`animation is ${typeof options.animation} expected a string`);
-  }
-  if (options.duration && typeof options.duration !== 'number') {
-    throw new Error(`duration is ${typeof options.duration} expected a number`);
-  }
-  if (options.delay && typeof options.delay !== 'number') {
-    throw new Error(`delay is ${typeof options.delay} expected a number`);
-  }
-  if (options.easing && typeof options.easing !== 'string') {
-    throw new Error(`easing is ${typeof options.easing} expected a string`);
-  }
-  if (options.once && typeof options.once !== 'boolean') {
-    throw new Error(`once is ${typeof options.once} expected a boolean`);
+  if (options.threshold !== undefined
+    && (typeof options.threshold !== 'number'
+    || options.threshold <= 0
+    || options.threshold > 1)) {
+    throw new Error('Threshold should be a number between 0 exclusive and 1 inclusive');
   }
 });
 const setEvents = (details = null) => <IntersectaEvents>({
@@ -110,7 +92,7 @@ const handleEntry = (entry: IntersectionObserverEntry, observer: IntersectionObs
     );
   }
 };
-const createIntersectaObserver = (userOptions: IntersectaOptions) => {
+const intersecta = (userOptions: IntersectaOptions) => {
   // handle wrong user inputs
   handleInputErrors(userOptions);
 
@@ -128,4 +110,4 @@ const createIntersectaObserver = (userOptions: IntersectaOptions) => {
     stop: () => { observer.disconnect(); },
   };
 };
-export { createIntersectaObserver as default };
+export default intersecta;
