@@ -1,13 +1,6 @@
+import { IntersectaEvents, IntersectaInnerOptions, IntersectaOptions } from '.';
 import { frames, onceOnlyFrames } from './frames';
 
-/**
- * Options for the intersection observer API
- *
- * @param {Element} root object whose bounding box is used as the bounds of the viewport
- * @param {string} rootMargin offsets for one or more sides of the root's bounding box.
- * @param {number} threshold list or value of intersection thresholds for the observer
- * @returns {object} with the defined or default options
- */
 const setObserverOptions = ({
   root = null,
   rootMargin = '0px',
@@ -17,20 +10,6 @@ const setObserverOptions = ({
   rootMargin,
   threshold,
 });
-
-/**
- * Creates all options needed out of user options object
- *
- * @param {string} selector css selector for desired element
- * @param {number} threshold value of intersection threshold for the observer
- * @param {string} animation chosen effect of available options
- * @param {number} duration number of milliseconds the animation takes to complete
- * @param {number} delay number of milliseconds to delay the start of the animation
- * @param {string} easing rate of animation's change over time
- * @param {string} fill whether animation's effects should be retained after its done
- * @param {boolean} once whether animation should play each time element enters
- * @returns {object} with user defined and/or default options
- */
 const setAllOptions = ({
   selector = null,
   threshold = 1,
@@ -38,24 +17,22 @@ const setAllOptions = ({
   duration = 1000,
   delay = 0,
   easing = 'linear',
-  fill = 'forwards',
   once = true,
   waterfall = false,
   custom = null,
-} = {}) => ({
+}: IntersectaOptions) => <IntersectaInnerOptions>({
   selector,
   threshold,
   animation,
   duration,
   delay,
   easing,
-  fill,
+  fill: 'forwards',
   once,
   waterfall,
   custom,
 });
-
-const handleInputErrors = ((options) => {
+const handleInputErrors = ((options: IntersectaOptions) => {
   if (!options.selector || typeof options.selector !== 'string') {
     throw new Error('Either no selector was given or it is not a string');
   }
@@ -81,22 +58,11 @@ const handleInputErrors = ((options) => {
     throw new Error(`once is ${typeof options.once} expected a boolean`);
   }
 });
-
-const setEvents = (details = null) => ({
+const setEvents = (details = null) => <IntersectaEvents>({
   in: new CustomEvent('intersecta:in', { detail: details }),
   out: new CustomEvent('intersecta:out', { detail: details }),
 });
-
-/**
- * Callback for Intersection Observer
- * Starts animations for entry according to options
- * @param {object} entry
- * @param {object} observer
- * @param {object} options
- * @param {number} entryIndex
- * @param {object} events
- */
-const handleEntry = (entry, observer, entryIndex, options, events) => {
+const handleEntry = (entry: IntersectionObserverEntry, observer: IntersectionObserver, entryIndex: number, options: IntersectaInnerOptions, events: IntersectaEvents) => {
   const animationOptions = (({
     duration, fill, delay, easing,
   }) => ({
@@ -144,13 +110,7 @@ const handleEntry = (entry, observer, entryIndex, options, events) => {
     );
   }
 };
-
-/**
- * Core function
- * Starts observer for desired elements according to user options
- * @param {object} userOptions
- */
-const createIntersectaObserver = (userOptions) => {
+const createIntersectaObserver = (userOptions?: IntersectaOptions) => {
   // handle wrong user inputs
   handleInputErrors(userOptions);
 
@@ -158,7 +118,7 @@ const createIntersectaObserver = (userOptions) => {
   const events = setEvents();
   const options = setAllOptions(userOptions);
   const selectItems = document.querySelectorAll(options.selector);
-  const intersectionEffect = (entries, observer) => {
+  const intersectionEffect: IntersectionObserverCallback = (entries, observer) => {
     entries.forEach((entry, index) => handleEntry(entry, observer, index, options, events));
   };
   // start observer
@@ -168,5 +128,4 @@ const createIntersectaObserver = (userOptions) => {
     stop: () => { observer.disconnect(); },
   };
 };
-
 export { createIntersectaObserver as default };
