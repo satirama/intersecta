@@ -117,7 +117,7 @@ export default {
       const item = el;
       const random = Math.floor(Math.random() * this.colors.length);
       item.style.background = `linear-gradient(125deg,
-      ${this.colors[random]}, 0.6), ${this.colors[random]}, 1))`;
+      ${this.colors[random]}, 0.8), ${this.colors[random]}, 1))`;
     });
     this.observer = intersecta({
       selector: '.item',
@@ -170,7 +170,7 @@ export default {
       height: 1rem;
       background-color: black;
       border-radius: 50%;
-      box-shadow: 2px 1px 2px 0px rgba(0, 0, 0, 0.2);
+      box-shadow: 2px 1px 3px 0px rgba(0, 0, 0, 0.2);
     }
   }
   .group:nth-child(even) {
