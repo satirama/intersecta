@@ -1,5 +1,36 @@
-import { IntersectaEvents, IntersectaInnerOptions, IntersectaOptions } from '.';
 import { frames, onceOnlyFrames } from './frames';
+
+type AnimationOptions = 'fadeIn' 
+  | 'fadeOut'
+  | 'zoomIn'
+  | 'zoomOut'
+  | 'slideDown'
+  | 'slideUp'
+  | 'slideLeft'
+  | 'slideRight'
+  | 'flipLeft'
+  | 'flipRight'
+
+type IntersectaEvents = {
+  in: CustomEvent
+  out: CustomEvent
+}
+
+type IntersectaOptions = {
+  selector: string
+  threshold?: number
+  animation?: AnimationOptions
+  duration?: number
+  delay?: number
+  easing?: string
+  once?: boolean
+  waterfall?: boolean
+  custom?: any 
+}
+
+interface IntersectaInnerOptions extends IntersectaOptions {
+  fill: FillMode
+}
 
 const setObserverOptions = ({
   root = null,
@@ -110,4 +141,5 @@ const intersecta = (userOptions: IntersectaOptions) => {
     stop: () => { observer.disconnect(); },
   };
 };
-export default intersecta;
+
+export default intersecta

@@ -1,0 +1,42 @@
+{
+  "name": "intersecta",
+  "version": "0.1.0",
+  "description": "Lightweight lib for scrolling based animations 100% js",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/cjs/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib/*/frames.js",
+    "lib/*/index.js",
+    "lib/*/index.d.ts"
+  ],
+  "devDependencies": {
+    "mocha": "^6.2.3",
+    "typescript": "^4.0.5"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "test": "mocha",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satirama/intersecta.git"
+  },
+  "keywords": [
+    "scroll",
+    "animation",
+    "transition",
+    "js",
+    "css"
+  ],
+  "author": "Angelica Miranda <mirandas.angelica@gmail.com> (satirama.github.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/satirama/intersecta/issues"
+  },
+  "homepage": "https://github.com/satirama/intersecta#readme"
+}
