@@ -61,7 +61,7 @@
         .item
 </template>
 <script>
-import intersecta from '@/intersecta/intersecta';
+import intersecta from 'intersecta';
 
 export default {
   name: 'Intersecta',
