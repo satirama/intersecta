@@ -3,7 +3,7 @@
     "target": "es6",
     "module": "es2020",
     "declaration": true,
-    "outDir": "./lib/esm",
+    "outDir": "./tmp/esm",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
