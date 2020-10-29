@@ -18,10 +18,15 @@ However, for more detailed browser compatibility check:
 1. [Events](#events)
 
 ## Getting started <a name="getting-started"></a>
+### Install
+```
+npm install --save intersecta
+yarn add intersecta
+```
 ### Start
 Import **intersecta** to your file
 ```
-import intersecta from "../intersecta.js"
+import intersecta from "intersecta"
 ```
 Just start **intersecta** initializing it with your options object. It only requires the CSS selector for the element you want to animate on scroll. 
 ```
