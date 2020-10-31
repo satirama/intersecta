@@ -18,7 +18,7 @@
     "parsets": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "build": "npm run parsets && node_modules/.bin/babel tmp --out-dir lib && cp ./tmp/esm/index.d.ts ./lib/",
     "test": "mocha",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "babel": {
     "presets": [ "@babel/preset-env" ]
