@@ -21,7 +21,9 @@
     "prepublishOnly": "npm run build"
   },
   "babel": {
-    "presets": [ "@babel/preset-env" ]
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
   "repository": {
     "type": "git",
