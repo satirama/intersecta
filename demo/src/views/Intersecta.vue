@@ -144,6 +144,8 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
+  min-width: 240px;
+  padding: 0.8rem;
   h1 {
     font-weight: 800;
   }
@@ -175,6 +177,22 @@ export default {
   }
   .group:nth-child(even) {
     justify-content: space-around;
+  }
+}
+
+@media (max-width: 767px) {
+  .content {
+    top: 10%;
+    min-width: 60%;
+    background-color: #f0f0e4be;//#eff0e4be;
+    border-radius: 5%;
+    box-shadow: 1px 1px 22px 1px rgba(0, 0, 0, 0.2);
+  }
+  .background {
+    .group {
+      min-height: 120px;
+      padding: 1rem 0.2rem;
+    }
   }
 }
 </style>
