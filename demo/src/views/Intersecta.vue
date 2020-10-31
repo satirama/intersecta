@@ -184,13 +184,13 @@ export default {
   .content {
     top: 10%;
     min-width: 60%;
-    background-color: #f0f0e4be;//#eff0e4be;
+    background-color: #f7f7f7d7;//#eff0e4be;
     border-radius: 5%;
-    box-shadow: 1px 1px 22px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 22px 1px rgba(0, 0, 0, 0.1);
   }
   .background {
     .group {
-      min-height: 120px;
+      min-height: 150px;
       padding: 1rem 0.2rem;
     }
   }
