@@ -21,6 +21,6 @@ git add -A
 git commit -m 'deploy'
 
 # deploy
-git push -f git@github.com:satirama/intersecta.git gh-pages
+git push -f git@github.com:satirama/intersecta.git master:gh-pages
 
 cd -
