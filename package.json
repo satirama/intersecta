@@ -1,6 +1,6 @@
 {
   "name": "intersecta",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Lightweight lib for scrolling based animations 100% js",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
